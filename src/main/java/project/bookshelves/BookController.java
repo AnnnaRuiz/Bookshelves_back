@@ -1,7 +1,7 @@
 package project.bookshelves;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import project.bookshelves.DTO.BookDTO;
 import project.bookshelves.model.Book;
 import project.bookshelves.service.BookService;
 
@@ -27,9 +29,12 @@ public class BookController {
 	}
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<Book>> getAllBooks (){
-		List<Book> books = bookService.findAllBooks();
-		return new ResponseEntity<>(books, HttpStatus.OK);
+	public ResponseEntity<Page<BookDTO>> getAllBooks(
+	        @RequestParam(defaultValue = "0") int page,
+	        @RequestParam(defaultValue = "6") int size
+	) {
+	    Page<BookDTO> books = bookService.findAllBooks(PageRequest.of(page, size));
+	    return new ResponseEntity<>(books, HttpStatus.OK);
 	}
 	
 	@GetMapping("/find/{id}")

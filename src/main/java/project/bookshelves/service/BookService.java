@@ -1,11 +1,13 @@
 package project.bookshelves.service;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import project.bookshelves.DTO.BookDTO;
 import project.bookshelves.exception.BookNotFoundException;
 import project.bookshelves.model.Book;
 import project.bookshelves.repository.BookRepository;
@@ -27,8 +29,8 @@ public class BookService {
 		return bookRepository.save(book);
 	}
 	
-	public List<Book> findAllBooks() {
-		return bookRepository.findAll();
+	public Page<BookDTO> findAllBooks(Pageable pageable) {
+		return bookRepository.findAllBooksDto(pageable);
 	}
 	
 	public Book updateBook(Book book) {

@@ -10,7 +10,7 @@ public class Book implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable= false, updatable = false)
 	private Long id;
-	private String name;
+	private String title;
 	@Column(length = 500)
 	private String description;
 	private int pages;
@@ -23,8 +23,8 @@ public class Book implements Serializable{
 	protected Book() {
     }
 	
-	public Book(String name, String description, int pages, String author, String category, String imageUrl) {
-		this.name = name;
+	public Book(String title, String description, int pages, String author, String category, String imageUrl) {
+		this.title = title;
 		this.description = description;
 		this.pages = pages;
 		this.author = author;
@@ -40,12 +40,12 @@ public class Book implements Serializable{
 		this.bookCode = bookCode;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getDescription() {
